@@ -1,0 +1,10 @@
+{
+    "name": "snake",
+    "description": "The coolest snek game in gnomehill",
+    "version": "0.0.1",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.16.3",
+        "mongodb": "^3.1.1",
+    }
+}
