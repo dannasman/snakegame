@@ -21,6 +21,9 @@ const SNAKE_COLOUR = 'lightgreen';
 const SNAKE_BORDER_COLOUR = 'darkgreen';
 
 var main = function () {
+    "use strict";
+
+    getScoreBoard();
 
     document.addEventListener("keydown", changeDirection);
 
@@ -29,11 +32,30 @@ var main = function () {
     updateCanvas();
 }
 
+function getScoreBoard() {
+    $.getJSON("scores.json", function (scoreObjects) {
+        var scoreNumbers = scoreObjects.map(function (singleScore) {
+            return singleScore.score;
+        });
+        $(".scoreBoard").append("<ol class='scoreList'></ol>");
+        scoreNumbers.sort(function (first, last) { return last - first }).splice(10);
+        scoreNumbers.forEach(function (scoreNumber) {
+            $(".scoreList").append($("<li>").text(scoreNumber));
+        });
+    });
+}
+
 function updateCanvas() {
 
-    if (didGameEnd()) return;
+    if (didGameEnd()) {
+        var scoreObject = { "score": score };
+        $.post("scores", scoreObject, function (result) {
+            console.log(result);
+        });
+        return;
+    }
 
-    setTimeout(function onTick() {
+    setTimeout(function () {
         clearCanvas();
         drawFood();
         advanceSnake();

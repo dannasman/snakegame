@@ -1,0 +1,9 @@
+li:first-child {
+    color: gold;
+}
+li:nth-child(2) {
+    color: silver;
+}
+li:nth-child(3) {
+    color: #cd7f32;
+}
