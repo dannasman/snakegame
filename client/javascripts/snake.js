@@ -33,9 +33,9 @@ var main = function () {
 }
 
 function getScoreBoard() {
-    $.getJSON("scores.json", function (scoreObjects) {
-        var scoreNumbers = scoreObjects.map(function (singleScore) {
-            return singleScore.score;
+    $.getJSON("scores.json", function (foundScores) {
+        var scoreNumbers = foundScores.map(function (foundScore) {
+            return foundScore.singleScore;
         });
         $(".scoreBoard").append("<ol class='scoreList'></ol>");
         scoreNumbers.sort(function (first, last) { return last - first }).splice(10);
@@ -48,7 +48,7 @@ function getScoreBoard() {
 function updateCanvas() {
 
     if (didGameEnd()) {
-        var scoreObject = { "score": score };
+        var scoreObject = { "singleScore": score };
         $.post("scores", scoreObject, function (result) {
             console.log(result);
         });
